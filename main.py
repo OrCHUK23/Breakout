@@ -5,6 +5,7 @@ from ball import Ball
 from paddle import Paddle
 import time
 
+
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 500
 
@@ -52,6 +53,7 @@ def main():
     screen.onkeypress(paddle.go_right, "Right")
     screen.listen()
 
+
     # Start the game.
     while game_is_on:
         time.sleep(ball.move_speed)
@@ -80,6 +82,8 @@ def main():
                 else:
                     ball.bounce_x()  # Bounce the ball horizontally.
                 bricks.delete_brick(brick)
+                game_is_on = False
+                break
                 # TODO: Add point
 
         # Check ball collision with the paddle.
