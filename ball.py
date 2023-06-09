@@ -58,7 +58,7 @@ class Ball(Turtle):
 
     def reset_position(self):
         """
-        Reset ball position.
+        Reset the ball position.
         :return: None.
         """
         self.goto(self.ball_x_surface, self.ball_y_surface + 20)
