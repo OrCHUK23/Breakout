@@ -3,7 +3,7 @@ from turtle import Turtle
 ALIGNMENT = "center"
 POINTS_FONT = ("Myriad Pro Black", 40, "bold")
 LABEL_FONT = ("Myriad Pro Black", 15, "bold")
-WIN_FONT = ("Myriad Pro Black", 50, "bold")
+WIN_LOSE_FONT = ("Myriad Pro Black", 50, "bold")
 
 
 class Scoreboard(Turtle):
@@ -12,7 +12,7 @@ class Scoreboard(Turtle):
         self.color("white")
         self.hideturtle()
         self.penup()
-        self.lives = 100
+        self.lives = 1
         self.bricks = 0
         self.update_scoreboard()
 
@@ -58,4 +58,13 @@ class Scoreboard(Turtle):
         """
         self.goto(0, 0)
         self.color("turquoise")
-        self.write("You win!", align=ALIGNMENT, font=WIN_FONT)
+        self.write("You win! 😁", align=ALIGNMENT, font=WIN_LOSE_FONT)
+
+    def show_lose_message(self):
+        """
+        Function handles lose message when there are no more lives.
+        :return: None.
+        """
+        self.goto(0, 0)
+        self.color("#FF6969")
+        self.write("You lost 😢", align=ALIGNMENT, font=WIN_LOSE_FONT)

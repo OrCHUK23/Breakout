@@ -4,8 +4,7 @@ import random
 
 BRICK_WIDTH = 40
 BRICK_HEIGHT = 20
-# STARTING_ROW = 7  # Number of bricks in each row.
-STARTING_ROW = 2  # Number of bricks in each row.
+STARTING_ROW = 7  # Number of bricks in each row.
 STARTING_POSITION_X = -150
 STARTING_POSITION_Y = 30
 BRICK_GAP = 10  # Gap between bricks
@@ -39,11 +38,19 @@ class Brick(Turtle):
     def delete_brick(self, brick):
         """
         Function handles deletion of a brick.
-        :param brick: Turtle.
+        :param brick: Turtle object.
         :return: None.
         """
-        brick.goto(1000, 1000)
+        brick.goto(10000, 10000)
         self.bricks.remove(brick)
+
+    def delete_all_bricks(self):
+        """
+        Function deletes all bricks in the window.
+        :return: None.
+        """
+        for brick in self.bricks:
+            brick.goto(10000, 10000)
 
     @staticmethod
     def __generate_random_color():
@@ -79,3 +86,6 @@ class Brick(Turtle):
         """
         rgb = tuple(round(i * 255) for i in colorsys.hsv_to_rgb(hue / 360, saturation, value))
         return rgb
+
+
+

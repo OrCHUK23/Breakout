@@ -85,6 +85,11 @@ def main():
             ball.reset_position(paddle.xcor(), paddle.ycor())
             # Check if game lost.
             if score_board.lives == 0:
+                # Empty the board and show lose message
+                bricks.delete_all_bricks()
+                screen.update()
+                score_board.show_lose_message()
+
                 game_is_on = False
 
         # Check ball collision with the paddle.
