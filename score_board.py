@@ -12,7 +12,7 @@ class Scoreboard(Turtle):
         self.color("white")
         self.hideturtle()
         self.penup()
-        self.lives = 1
+        self.lives = 3
         self.bricks = 0
         self.update_scoreboard()
 
