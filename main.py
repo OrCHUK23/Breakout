@@ -1,10 +1,9 @@
-from brick import Brick
 from score_board import Scoreboard
+from brick import Brick
 from turtle import Screen
 from ball import Ball
 from paddle import Paddle
 import time
-
 
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 500
@@ -19,7 +18,7 @@ def handle_mouse_click(x, y):
     :param y: float.
     :return: None
     """
-    print(f"Clicked at ({x}, {y})")
+    # print(f"Clicked at ({x}, {y})")
 
     global game_is_on
     game_is_on = True
@@ -42,17 +41,11 @@ def main():
     global game_is_on
     game_is_on = False
 
-    # Register the mouse click event handler
+    # Register the mouse click event handler.
     screen.onclick(handle_mouse_click)
 
     while not game_is_on:
         screen.update()
-
-    # Keyboard listening.
-    screen.onkeypress(paddle.go_left, "Left")
-    screen.onkeypress(paddle.go_right, "Right")
-    screen.listen()
-
 
     # Start the game.
     while game_is_on:
@@ -60,7 +53,6 @@ def main():
         screen.update()  # Update the screen manually because screen.tracer is set to 0.
         ball.move()  # Start ball movement.
 
-        # ------------------- Ball Collisions ------------------- #
         # Check ball collision with top wall.
         if ball.ycor() > (SCREEN_HEIGHT / 2) - 20:
             ball.bounce_y()
@@ -70,7 +62,7 @@ def main():
             ball.bounce_x()
 
         # Check ball collision with bottom wall.
-        # TODO: LOSE POINT AND IMPROVE IF STATEMENT.
+        # TODO: LOSE POINT.
         if ball.ycor() < - (SCREEN_HEIGHT / 2) + 20:
             ball.bounce_y()
 
@@ -82,8 +74,8 @@ def main():
                 else:
                     ball.bounce_x()  # Bounce the ball horizontally.
                 bricks.delete_brick(brick)
-                game_is_on = False
-                break
+                # game_is_on = False
+                # break
                 # TODO: Add point
 
         # Check ball collision with the paddle.
