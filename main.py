@@ -89,7 +89,6 @@ def main():
                 bricks.delete_all_bricks()
                 screen.update()
                 score_board.show_lose_message()
-
                 game_is_on = False
 
         # Check ball collision with the paddle.
