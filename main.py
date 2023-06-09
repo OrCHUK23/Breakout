@@ -68,6 +68,7 @@ def main():
         # No more bricks
         else:
             game_is_on = False
+            ball.reset_position()
             score_board.show_win_message()
 
         # Check ball collision with top wall.
@@ -80,10 +81,12 @@ def main():
 
         # Check ball collision with bottom wall.
         if ball.ycor() < - (SCREEN_HEIGHT / 2) + 20:
+
             # Reduce life
             score_board.reduce_life()
-            ball.reset_position(paddle.xcor(), paddle.ycor())
-            # Check if game lost.
+            ball.reset_position()
+
+            # Check if the game lost.
             if score_board.lives == 0:
                 # Empty the board and show lose message
                 bricks.delete_all_bricks()

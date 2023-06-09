@@ -11,7 +11,9 @@ class Ball(Turtle):
         self.x_move = 10
         self.y_move = 10
         self.move_speed = 0.02
-        self.reset_position(x_surface, y_surface)
+        self.ball_x_surface = x_surface
+        self.ball_y_surface = y_surface
+        self.reset_position()
         self.dx = 0
         self.dy = 0
 
@@ -54,9 +56,9 @@ class Ball(Turtle):
         return (paddle_y - paddle_height / 2 <= ball_y <= paddle_y + paddle_height / 2
                 and paddle_x - paddle_width / 2 <= ball_x <= paddle_x + paddle_width / 2)
 
-    def reset_position(self, x_surface, y_surface):
+    def reset_position(self):
         """
         Reset ball position.
         :return: None.
         """
-        self.goto(x_surface, y_surface + 20)
+        self.goto(self.ball_x_surface, self.ball_y_surface + 20)
