@@ -5,9 +5,11 @@ from ball import Ball
 from paddle import Paddle
 import time
 
+# Screen width and height.
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 500
 
+# Global bool for game status.
 game_is_on = False
 
 
@@ -18,8 +20,6 @@ def handle_mouse_click(x, y):
     :param y: float.
     :return: None
     """
-    # print(f"Clicked at ({x}, {y})")
-
     global game_is_on
     game_is_on = True
 
@@ -36,6 +36,7 @@ def main():
     paddle = Paddle(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT)
     ball = Ball(paddle.xcor(), paddle.ycor())
     bricks = Brick()
+    score_board = Scoreboard()
 
     # Handle first click to start the game.
     global game_is_on
@@ -53,6 +54,22 @@ def main():
         screen.update()  # Update the screen manually because screen.tracer is set to 0.
         ball.move()  # Start ball movement.
 
+        if bricks.bricks:
+            # Check ball collision with a brick.
+            for brick in bricks.bricks:
+                if ball.distance(brick) < 30:
+                    score_board.add_brick_point()
+                    if ball.ycor() > brick.ycor() + 10 or ball.ycor() < brick.ycor() - 10:
+                        ball.bounce_y()  # Bounce the ball vertically.
+                    else:
+                        ball.bounce_x()  # Bounce the ball horizontally.
+                    bricks.delete_brick(brick)
+
+        # No more bricks
+        else:
+            game_is_on = False
+            score_board.show_win_message()
+
         # Check ball collision with top wall.
         if ball.ycor() > (SCREEN_HEIGHT / 2) - 20:
             ball.bounce_y()
@@ -62,21 +79,13 @@ def main():
             ball.bounce_x()
 
         # Check ball collision with bottom wall.
-        # TODO: LOSE POINT.
         if ball.ycor() < - (SCREEN_HEIGHT / 2) + 20:
-            ball.bounce_y()
-
-        # Check ball collision with a brick.
-        for brick in bricks.bricks:
-            if ball.distance(brick) < 30:
-                if ball.ycor() > brick.ycor() + 10 or ball.ycor() < brick.ycor() - 10:
-                    ball.bounce_y()  # Bounce the ball vertically.
-                else:
-                    ball.bounce_x()  # Bounce the ball horizontally.
-                bricks.delete_brick(brick)
-                # game_is_on = False
-                # break
-                # TODO: Add point
+            # Reduce life
+            score_board.reduce_life()
+            ball.reset_position(paddle.xcor(), paddle.ycor())
+            # Check if game lost.
+            if score_board.lives == 0:
+                game_is_on = False
 
         # Check ball collision with the paddle.
         if ball.paddle_collision(paddle):

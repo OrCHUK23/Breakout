@@ -1,3 +1,4 @@
+import turtle
 from turtle import Turtle
 
 
@@ -12,7 +13,7 @@ class Paddle(Turtle):
         # Define shape and placing.
         self.shape("square")
         self.shapesize(stretch_wid=1, stretch_len=self.__screen_width / 100)
-        self.fillcolor("#B31312")
+        self.fillcolor("#E8A9A9")
         self.penup()
         self.speed("fastest")
 

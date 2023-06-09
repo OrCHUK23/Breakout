@@ -4,7 +4,8 @@ import random
 
 BRICK_WIDTH = 40
 BRICK_HEIGHT = 20
-STARTING_ROW = 7  # Number of bricks in each row.
+# STARTING_ROW = 7  # Number of bricks in each row.
+STARTING_ROW = 2  # Number of bricks in each row.
 STARTING_POSITION_X = -150
 STARTING_POSITION_Y = 30
 BRICK_GAP = 10  # Gap between bricks
@@ -14,7 +15,6 @@ class Brick(Turtle):
     def __init__(self):
         """
         Initialization of the bricks.
-        :param screen_bg_color: Tuple.
         """
         self.bricks = []
         self.create_bricks()
@@ -31,7 +31,7 @@ class Brick(Turtle):
                 brick_segment = Turtle("square")
                 brick_segment.shapesize(stretch_wid=1, stretch_len=2)
                 brick_segment.penup()
-                brick_segment.color(self.generate_random_color())
+                brick_segment.color(self.__generate_random_color())
                 brick_segment.speed("fastest")
                 brick_segment.goto(x, y)
                 self.bricks.append(brick_segment)
@@ -44,11 +44,12 @@ class Brick(Turtle):
         """
         brick.goto(1000, 1000)
         self.bricks.remove(brick)
+
     @staticmethod
-    def generate_random_color():
+    def __generate_random_color():
         """
         Function generates random color for a brick.
-        :return: None.
+        :return: str.
         """
         hue_range = 10  # Range of hue variation (0-360)
         base_hue = 26  # Base hue for the bricks (corresponding to #EEE2DE)
@@ -78,4 +79,3 @@ class Brick(Turtle):
         """
         rgb = tuple(round(i * 255) for i in colorsys.hsv_to_rgb(hue / 360, saturation, value))
         return rgb
-
