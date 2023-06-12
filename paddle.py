@@ -18,7 +18,7 @@ class Paddle(Turtle):
         self.speed("fastest")
 
         # Place paddle in the center bottom of the screen.
-        self.goto(x=0, y=-(self.__screen_height / 2) + 50)
+        self.reset_position()
 
         # Register mouse movement to move paddle
         self.screen = self.getscreen()
@@ -40,3 +40,11 @@ class Paddle(Turtle):
             new_x = (self.__screen_width / 2) - 80
 
         self.goto(new_x, self.ycor())
+
+    def reset_position(self):
+        """
+        Reset paddle position to screen center.
+        :return: None.
+        """
+        self.goto(x=0, y=-(self.__screen_height / 2) + 50)
+

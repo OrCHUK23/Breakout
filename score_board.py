@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 ALIGNMENT = "center"
-POINTS_FONT = ("Myriad Pro Black", 40, "bold")
+POINTS_FONT = ("Myriad Pro Black", 30, "bold")
 LABEL_FONT = ("Myriad Pro Black", 15, "bold")
 WIN_LOSE_FONT = ("Myriad Pro Black", 50, "bold")
 
@@ -13,6 +13,7 @@ class Scoreboard(Turtle):
         self.hideturtle()
         self.penup()
         self.lives = 3
+        self.hearts = "❤❤❤"
         self.bricks = 0
         self.update_scoreboard()
 
@@ -22,20 +23,16 @@ class Scoreboard(Turtle):
         :return: None.
         """
         self.clear()
-
-        # Draw bricks state.
+        self.color("red")
+        # Draw points state.
         self.goto(-270, 180)
-        self.write("Bricks", align=ALIGNMENT, font=LABEL_FONT)
-        self.goto(-270, 120)
         self.write(self.bricks, align=ALIGNMENT, font=POINTS_FONT)
 
-        # Draw lives remaining state.
+        # Draw lives remaining.
         self.goto(270, 180)
-        self.write("Life", align=ALIGNMENT, font=LABEL_FONT)
-        self.goto(270, 120)
-        self.write(self.lives, align=ALIGNMENT, font=POINTS_FONT)
+        self.write(self.hearts, align=ALIGNMENT, font=POINTS_FONT)
 
-    def add_brick_point(self):
+    def add_point(self):
         """
         Function handles bricks that got broken.
         :return: None.
@@ -49,6 +46,7 @@ class Scoreboard(Turtle):
         :return: None.
         """
         self.lives -= 1
+        self.hearts = self.hearts.replace("❤", "", 1)
         self.update_scoreboard()
 
     def show_win_message(self):
@@ -60,11 +58,12 @@ class Scoreboard(Turtle):
         self.color("turquoise")
         self.write("You win! 😁", align=ALIGNMENT, font=WIN_LOSE_FONT)
 
-    def show_lose_message(self):
+    def lost_game(self):
         """
         Function handles lose message when there are no more lives.
         :return: None.
         """
         self.goto(0, 0)
+        self.clear()
         self.color("#FF6969")
         self.write("You lost 😢", align=ALIGNMENT, font=WIN_LOSE_FONT)

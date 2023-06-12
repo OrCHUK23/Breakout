@@ -4,18 +4,21 @@ from turtle import Turtle
 
 class Ball(Turtle):
     def __init__(self, x_surface, y_surface):
+        # Turtle settings.
         super().__init__()
         self.shape("circle")
         self.color("green")
         self.penup()
+
+        # Movement settings.
         self.x_move = 10
         self.y_move = 10
         self.move_speed = 0.02
-        self.ball_x_surface = x_surface
-        self.ball_y_surface = y_surface
+
+        # Position settings.
+        self.ball_x_surface = x_surface  # First x pos of the ball.
+        self.ball_y_surface = y_surface  # First y pos of the ball.
         self.reset_position()
-        self.dx = 0
-        self.dy = 0
 
     def move(self):
         """

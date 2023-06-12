@@ -35,7 +35,7 @@ class Brick(Turtle):
                 brick_segment.goto(x, y)
                 self.bricks.append(brick_segment)
 
-    def delete_brick(self, brick):
+    def delete(self, brick):
         """
         Function handles deletion of a brick.
         :param brick: Turtle object.
@@ -51,6 +51,12 @@ class Brick(Turtle):
         """
         for brick in self.bricks:
             brick.goto(10000, 10000)
+
+    def get_bricks(self):
+        """
+        :return: Turtles list.
+        """
+        return self.bricks
 
     @staticmethod
     def __generate_random_color():

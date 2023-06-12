@@ -20,6 +20,7 @@ def handle_mouse_click(x, y):
     :param y: float.
     :return: None
     """
+    # print(f"{x}, {y}")
     global game_is_on
     game_is_on = True
 
@@ -54,16 +55,16 @@ def main():
         screen.update()  # Update the screen manually because screen.tracer is set to 0.
         ball.move()  # Start ball movement.
 
-        if bricks.bricks:
+        if bricks.get_bricks():
             # Check ball collision with a brick.
-            for brick in bricks.bricks:
+            for brick in bricks.get_bricks():
                 if ball.distance(brick) < 30:
-                    score_board.add_brick_point()
+                    score_board.add_point()
                     if ball.ycor() > brick.ycor() + 10 or ball.ycor() < brick.ycor() - 10:
                         ball.bounce_y()  # Bounce the ball vertically.
                     else:
                         ball.bounce_x()  # Bounce the ball horizontally.
-                    bricks.delete_brick(brick)
+                    bricks.delete(brick)
 
         # No more bricks
         else:
@@ -82,8 +83,9 @@ def main():
         # Check ball collision with bottom wall.
         if ball.ycor() < - (SCREEN_HEIGHT / 2) + 20:
 
-            # Reduce life
+            # Reduce life and reset paddle and ball positions.
             score_board.reduce_life()
+            paddle.reset_position()
             ball.reset_position()
 
             # Check if the game lost.
@@ -91,7 +93,7 @@ def main():
                 # Empty the board and show lose message
                 bricks.delete_all_bricks()
                 screen.update()
-                score_board.show_lose_message()
+                score_board.lost_game()
                 game_is_on = False
 
         # Check ball collision with the paddle.
