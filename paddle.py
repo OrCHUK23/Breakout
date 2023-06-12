@@ -7,12 +7,12 @@ class Paddle(Turtle):
         super().__init__()
 
         # Define private screen width and height.
-        self.__screen_width = screen_width
-        self.__screen_height = screen_height
+        self.screen_width = screen_width
+        self.screen_height = screen_height
 
         # Define shape and placing.
         self.shape("square")
-        self.shapesize(stretch_wid=1, stretch_len=self.__screen_width / 100)
+        self.shapesize(stretch_wid=1, stretch_len=self.screen_width / 100)
         self.fillcolor("#E8A9A9")
         self.penup()
         self.speed("fastest")
@@ -34,10 +34,10 @@ class Paddle(Turtle):
         # Set the new x-coordinate to the current x-coordinate of the mouse.
         new_x = x
         # Check the x-coordinate within the screen boundaries.
-        if new_x < -(self.__screen_width / 2) + 70:
-            new_x = -(self.__screen_width / 2) + 70
-        elif new_x > (self.__screen_width / 2) - 80:
-            new_x = (self.__screen_width / 2) - 80
+        if new_x < -(self.screen_width / 2) + 70:
+            new_x = -(self.screen_width / 2) + 70
+        elif new_x > (self.screen_width / 2) - 80:
+            new_x = (self.screen_width / 2) - 80
 
         self.goto(new_x, self.ycor())
 
@@ -46,5 +46,7 @@ class Paddle(Turtle):
         Reset paddle position to screen center.
         :return: None.
         """
-        self.goto(x=0, y=-(self.__screen_height / 2) + 50)
+        self.goto(x=0, y=-(self.screen_height / 2) + 50)
 
+    def get_x(self):
+        return self.xcor()

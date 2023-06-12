@@ -23,12 +23,14 @@ class Scoreboard(Turtle):
         :return: None.
         """
         self.clear()
-        self.color("red")
+
         # Draw points state.
+        self.color("orange")
         self.goto(-270, 180)
         self.write(self.bricks, align=ALIGNMENT, font=POINTS_FONT)
 
         # Draw lives remaining.
+        self.color("red")
         self.goto(270, 180)
         self.write(self.hearts, align=ALIGNMENT, font=POINTS_FONT)
 
@@ -45,8 +47,8 @@ class Scoreboard(Turtle):
         Function reduces remaining life of the player.
         :return: None.
         """
-        self.lives -= 1
-        self.hearts = self.hearts.replace("❤", "", 1)
+        self.lives -= 1  # Reduce actual life.
+        self.hearts = self.hearts.replace("❤", "", 1)  # Reduce heart graphics.
         self.update_scoreboard()
 
     def show_win_message(self):
@@ -58,7 +60,7 @@ class Scoreboard(Turtle):
         self.color("turquoise")
         self.write("You win! 😁", align=ALIGNMENT, font=WIN_LOSE_FONT)
 
-    def lost_game(self):
+    def end_game(self):
         """
         Function handles lose message when there are no more lives.
         :return: None.

@@ -44,7 +44,7 @@ class Brick(Turtle):
         brick.goto(10000, 10000)
         self.bricks.remove(brick)
 
-    def delete_all_bricks(self):
+    def delete_all(self):
         """
         Function deletes all bricks in the window.
         :return: None.

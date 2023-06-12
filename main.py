@@ -66,7 +66,7 @@ def main():
                         ball.bounce_x()  # Bounce the ball horizontally.
                     bricks.delete(brick)
 
-        # No more bricks
+        # No more bricks.
         else:
             game_is_on = False
             ball.reset_position()
@@ -91,9 +91,9 @@ def main():
             # Check if the game lost.
             if score_board.lives == 0:
                 # Empty the board and show lose message
-                bricks.delete_all_bricks()
+                bricks.delete_all()
                 screen.update()
-                score_board.lost_game()
+                score_board.end_game()
                 game_is_on = False
 
         # Check ball collision with the paddle.
