@@ -1,4 +1,4 @@
-from turtle import Turtle, Screen
+from turtle import Turtle
 import colorsys
 import random
 
@@ -16,6 +16,7 @@ class Brick(Turtle):
         Initialization of the bricks.
         """
         self.bricks = []
+        self.hit_count = {}  # Track the hit count for each brick.
         self.create_bricks()
 
     def create_bricks(self):
@@ -33,6 +34,7 @@ class Brick(Turtle):
                 brick_segment.color(self.__generate_random_color())
                 brick_segment.speed("fastest")
                 brick_segment.goto(x, y)
+                self.hit_count[brick_segment] = 0  # Initialize the hit count for the brick.
                 self.bricks.append(brick_segment)
 
     def delete(self, brick):
@@ -41,8 +43,18 @@ class Brick(Turtle):
         :param brick: Turtle object.
         :return: None.
         """
-        brick.goto(10000, 10000)
-        self.bricks.remove(brick)
+        if brick in self.hit_count:
+            if not self.get_color(brick) == "ff0000":  # Block is not red.
+                self.hit_count[brick] += 1  # Increment the hit count.
+                remove_brick = random.choice([True, False])  # Randomly decide whether to remove the brick or not.
+                if remove_brick or self.hit_count[brick] > 1:
+                    brick.goto(10000, 10000)  # Remove the brick.
+                    self.bricks.remove(brick)
+                else:
+                    brick.color("red")
+            else:
+                brick.goto(10000, 10000)  # Remove the brick.
+                self.bricks.remove(brick)
 
     def delete_all(self):
         """
@@ -54,9 +66,20 @@ class Brick(Turtle):
 
     def get_bricks(self):
         """
-        :return: Turtles list.
+        :return: Turtle objects list.
         """
         return self.bricks
+
+    def get_color(self, brick):
+        """
+        Get the current color of a brick.
+        :param brick: Turtle object.
+        :return: str representing the color in hexadecimal format (e.g., "#RRGGBB").
+        """
+        if brick in self.hit_count:
+            return brick.color()[0]
+        else:
+            return None
 
     @staticmethod
     def __generate_random_color():
@@ -92,6 +115,3 @@ class Brick(Turtle):
         """
         rgb = tuple(round(i * 255) for i in colorsys.hsv_to_rgb(hue / 360, saturation, value))
         return rgb
-
-
-
