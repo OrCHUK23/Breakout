@@ -13,7 +13,7 @@ class Ball(Turtle):
         # Movement settings.
         self.x_move = 10
         self.y_move = 10
-        self.move_speed = 0.008
+        self.move_speed = 0.009
 
         # Position settings.
         self.ball_x_surface = x_surface  # First x pos of the ball.

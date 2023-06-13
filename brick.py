@@ -39,30 +39,20 @@ class Brick(Turtle):
 
     def delete(self, brick):
         """
-        Function handles deletion of a brick.
+        Function handles whether to remove a brick or to change its color to red.
         :param brick: Turtle object.
         :return: None.
         """
-        if brick in self.hit_count:
-            if not self.get_color(brick) == "ff0000":  # Block is not red.
-                self.hit_count[brick] += 1  # Increment the hit count.
-                remove_brick = random.choice([True, False])  # Randomly decide whether to remove the brick or not.
-                if remove_brick or self.hit_count[brick] > 1:
-                    brick.goto(10000, 10000)  # Remove the brick.
-                    self.bricks.remove(brick)
-                else:
-                    brick.color("red")
+        if not self.is_color_red(brick):  # Block is not red.
+            self.hit_count[brick] += 1  # Increment the hit count.
+            # Randomly decide whether to remove the brick or not.
+            remove_brick = random.choice([True, True, True, True, False])
+            if remove_brick or self.hit_count[brick] > 1:
+                self.__remove_brick(brick)
             else:
-                brick.goto(10000, 10000)  # Remove the brick.
-                self.bricks.remove(brick)
-
-    def delete_all(self):
-        """
-        Function deletes all bricks in the window.
-        :return: None.
-        """
-        for brick in self.bricks:
-            brick.goto(10000, 10000)
+                brick.color("red")
+        else:
+            self.__remove_brick(brick)
 
     def get_bricks(self):
         """
@@ -70,16 +60,31 @@ class Brick(Turtle):
         """
         return self.bricks
 
-    def get_color(self, brick):
+    def __remove_brick(self, brick):
         """
-        Get the current color of a brick.
+        Function handles brick remove.
         :param brick: Turtle object.
-        :return: str representing the color in hexadecimal format (e.g., "#RRGGBB").
+        :return: None.
         """
-        if brick in self.hit_count:
-            return brick.color()[0]
-        else:
-            return None
+        brick.goto(10000, 10000)
+        self.bricks.remove(brick)
+
+    def delete_all(self):
+        """
+        Function deletes all bricks in the window.
+        :return: None.
+        """
+        for brick in self.bricks:
+            self.__remove_brick(brick)
+
+    @staticmethod
+    def is_color_red(brick):
+        """
+        Checks if the current brick's color is red.
+        :param brick: Turtle object.
+        :return: bool.
+        """
+        return brick.color()[0] == "ff0000"
 
     @staticmethod
     def __generate_random_color():

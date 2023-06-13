@@ -90,7 +90,7 @@ def main():
 
             # Check if the game lost.
             if score_board.lives == 0:
-                # Empty the board and show lose message
+                # Empty the board and show lose message.
                 bricks.delete_all()
                 screen.update()
                 score_board.end_game()
